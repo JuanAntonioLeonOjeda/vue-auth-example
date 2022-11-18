@@ -10,7 +10,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/signup">Signup</RouterLink>
       </nav>
       <nav v-else>
-        Welcome {{ email}} -
+        Welcome {{ email }} -
         <button @click="logout">Logout</button>
       </nav>
   </header>
@@ -19,21 +19,25 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <script>
-const token = localStorage.getItem('token')
-const email = localStorage.getItem('email')
 
 export default {
   data() {
     return {
-      token
+      token: '',
+      email: ''
     }
   },
   methods: {
     logout() {
       localStorage.removeItem('token')
+      this.token = ''
       localStorage.removeItem('email')
       this.$router.push({name: 'login'})
     }
+  },
+  created () {
+    this.token = localStorage.getItem('token')
+    this.email = localStorage.getItem('email')
   }
 }
 </script>
